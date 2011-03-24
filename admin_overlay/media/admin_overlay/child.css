@@ -1,0 +1,18 @@
+html.popup,
+html.popup body {
+  background: transparent;
+  margin: 0;
+  padding: 0;
+}
+
+html.popup { overflow-y: scroll; }
+html.popup body { padding-top: 50px; }
+
+#dialog {
+  width: 400px;
+  min-height: 300px;
+  margin: 0 auto;
+  border: 1px solid #ccc;  /* avoids collapsing margins */
+  background-color: #fff;
+}
+
