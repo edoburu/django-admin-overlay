@@ -2,6 +2,7 @@
 Integration in the HTML for frontend editing.
 """
 import re
+from django.core.urlresolvers import NoReverseMatch, reverse
 from django.template import RequestContext
 from django.template.loader import render_to_string
 
@@ -25,14 +26,19 @@ class AdminOverlayMiddleware(object):
 
     def _can_show_overlay(self, request, response):
         # hasattr(request, 'user') is needed for /admin without slash
-        return response['Content-Type'].startswith("text/html") \
+        return response.status_code == 200 \
+           and not request.is_ajax() \
+           and response['Content-Type'].split(';')[0] in ("text/html", "application/xhtml+xml") \
            and hasattr(request, 'user') \
            and request.user.is_authenticated() \
            and request.user.is_staff \
            and self._is_frontend_page(request)
 
     def _is_frontend_page(self, request):
-        return not request.path.startswith('/admin/')
+        try:
+            return not request.path.startswith(reverse('admin:index'))
+        except NoReverseMatch:
+            return true
 
 
     # -- Inserting HTML overlay
