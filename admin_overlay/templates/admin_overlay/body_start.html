@@ -1,1 +1,13 @@
-<!--BODY-->
+{% load i18n %}{% load url from future %}{% url 'admin:password_change' as password_change_url %}{% url 'admin:logout' as logout_url  %}
+    <div id="admin-toolbar">
+      <div id="admin-toolbar-buttons">
+        {% block toolbarbuttons %}<strong>Django:</strong> <a class="admin-toolbar-admin-panel" href="{% url 'admin:index' %}">{% trans "Admin Dashboard" %}</a>{% endblock %}
+      </div>
+      <div id="admin-toolbar-user-tools">
+        {% block username %}{% trans 'Welcome,' %}<strong>{% filter force_escape %}{% firstof user.first_name user.username %}{% endfilter %}</strong>.{% endblock %}
+        {% block userlinks %}
+            <a href="{% if password_change_url %}{{ password_change_url }}{% else %}{{ root_path }}password_change/{% endif %}">{% trans 'Change password' %}</a> /
+            <a href="{% if logout_url %}{{ logout_url }}{% else %}{{ root_path }}logout/{% endif %}">{% trans 'Log out' %}</a>
+        {% endblock %}
+      </div>
+    </div>
