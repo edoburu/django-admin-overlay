@@ -56,17 +56,18 @@ class AdminOverlayMiddleware(object):
             return
 
         # Render HTML
+        # The encode("utf-8") is needed to avoid an UnicodeDecodeError
         context_instance = RequestContext(request)
-        head_content = render_to_string("admin_overlay/head_end.html", {}, context_instance)
-        body_content = render_to_string("admin_overlay/body_start.html", {}, context_instance)
-        end_content  = render_to_string("admin_overlay/body_end.html", {}, context_instance)
+        head_content = render_to_string("admin_overlay/head_end.html", {}, context_instance).encode("utf-8")
+        body_content = render_to_string("admin_overlay/body_start.html", {}, context_instance).encode("utf-8")
+        end_content  = render_to_string("admin_overlay/body_end.html", {}, context_instance).encode("utf-8")
 
         # Insert
         html = response.content
         head_end   = head_match.start()
         body_start = body_match.end()
         body_end   = end_match.start()
-        response.content = html[:head_end]  + head_content \
+        response.content = html[:head_end]           + head_content \
                          + html[head_end:body_start] + body_content \
                          + html[body_start:body_end] + end_content \
                          + html[body_end:]
