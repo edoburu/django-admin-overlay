@@ -27,11 +27,15 @@ Settings to add::
         'admin_overlay.middleware.AdminOverlayMiddleware',
     )
 
-Optionally the templates can be updated:
+Next, the static files can be linked::
 
-- ``admin_overlay/head_end.html``: the content which is added just before the ``</head>`` tag.
-- ``admin_overlay/body_start.html``: the content which is added just after the ``<body>`` tag.
-- ``admin_overlay/body_end.html``: the content which is added just before the ``</body>`` tag.
+    ./manage.py collectstatic --link
+
+Optionally you can override the templates:
+
+- ``admin_overlay/head_end.html``: is added just before the ``</head>`` tag.
+- ``admin_overlay/body_start.html``: is added just after the ``<body>`` tag.
+- ``admin_overlay/body_end.html``: is added just before the ``</body>`` tag.
 
 The templates receive a ``RequestContext`` with the ``request`` field. No other context information is given.
 
