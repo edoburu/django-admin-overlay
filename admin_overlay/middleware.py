@@ -1,6 +1,5 @@
 """
-
-Integration in the HTML for frontend editing.
+Middleware to display an admin toolbar/overlay at the frontend.
 """
 import re
 from django.core.urlresolvers import NoReverseMatch, reverse
@@ -48,7 +47,7 @@ class AdminOverlayMiddleware(object):
         Return whether the current visitor should see the overlay.
 
         This check can be fine tuned by overwriting the methods
-        ``is_staff()`` and ``is_frontend_page()``.
+        ``is_valid_user()`` and ``is_frontend_page()``.
         """
         return self.is_valid_user(request) and self.is_frontend_page(request)
 
