@@ -73,7 +73,7 @@ html.overlay-open #admin-toolbar {
   clip: rect(auto, 1260px, 50px, auto);  /* scrollbar space hack */
 }
 
-iframe {
+iframe.overlay {
   position: absolute;
   width: 100%;
   height: 100%;
